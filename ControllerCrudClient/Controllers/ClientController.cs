@@ -42,8 +42,22 @@ namespace ControllerCrudClient.Controllers
             return clients;
         }
 
+        [HttpPut]
 
+        public Client Update(int index, Client client)
+        {
+            clients[index] = client;
+            return clients[index];
 
+        }
+
+        [HttpDelete]
+
+        public List<Client> Delete(int index)
+        {
+            clients.RemoveAt(index);
+            return clients;
+        }
 
 
     }
