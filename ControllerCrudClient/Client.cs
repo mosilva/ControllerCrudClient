@@ -9,13 +9,13 @@ namespace ControllerCrudClient
 
         [MaxLength(100, ErrorMessage = "O nome é muito grande, ele só pode ter 100 caracteres")]
         [MinLength(3, ErrorMessage = "O nome é muito pequeno, ele tem que ter 3 caracteres")]
-        public string name { get; set; }
+        public string nome { get; set; }
 
         [Required(ErrorMessage = "A data de nascimento é obrigatória!")]
-        public DateTime birthDate { get; set; }
+        public DateTime dataNascimento { get; set; }
 
-        public int age => DateTime.Now.DayOfYear < birthDate.DayOfYear ?
-            (DateTime.Now.Year - birthDate.Year) - 1 : (DateTime.Now.Year - birthDate.Year);
+        public int idade => DateTime.Now.DayOfYear < dataNascimento.DayOfYear ?
+            (DateTime.Now.Year - dataNascimento.Year) - 1 : (DateTime.Now.Year - dataNascimento.Year);
 
     }
 }
