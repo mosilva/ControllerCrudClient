@@ -13,11 +13,11 @@ namespace ControllerCrudClient.Controllers
     {
         public List<Client> clients { get; set; }
 
-        private readonly IConfiguration _configuration;
+        private ClientRepository _clientRepository;
 
         public ClientController(IConfiguration configuration)
         {
-            _configuration = configuration;
+            _clientRepository = new ClientRepository(configuration);
         }
 
         #region CreateClientsWhithoutDB
@@ -32,14 +32,17 @@ namespace ControllerCrudClient.Controllers
         //    })
         //    .ToList();
         //}
-
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
         #endregion
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Client> Create(Client client)
         {
-            clients.Add(client);
+            if (_clientRepository.CreateClient(client))
+            {
+                return BadRequest();
+            };
             return CreatedAtAction(nameof(Create), client);
         }
 
@@ -53,39 +56,40 @@ namespace ControllerCrudClient.Controllers
 
         [HttpGet("/clients")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Client>> Read()
         {
-            var repositoryClient = new ClientRepository(_configuration);
-            var clientsList = repositoryClient.GetClients();
+            var clientsList = _clientRepository.GetClients();
+            
+            if(clientsList == null) { 
+                return NotFound();
+            }
+
             return Ok(clientsList);
         }
 
-        [HttpPut("/{index}")]
+        [HttpPut("/{novoNome}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Update(int index, Client client)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Update(string nome, string novoNome)
         {
-            if (index < 0 || index > 4)
+            if(_clientRepository.UpdateClient(nome, novoNome))
             {
-                return BadRequest();
+                return NotFound();
             }
-            clients[index] = client;
             return NoContent();
         }
 
         [HttpDelete("/{index}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Client>> Delete(int index)
         {
-            if ((index < 0 || index > 4))
+            if (!_clientRepository.DeleteClient(index))
             {
-                return BadRequest();
+                return NotFound();
             }
-            clients.RemoveAt(index);
-            return Ok(clients);
-            //return StatusCode (200, clients);
-
+            return NoContent();
         }
 
 
