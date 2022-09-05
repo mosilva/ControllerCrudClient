@@ -1,4 +1,5 @@
-using ControllerCrudClient.Repositories;
+using ControllerCrudClient.Core;
+using ControllerCrudClient.Core.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControllerCrudClient.Controllers
@@ -13,11 +14,11 @@ namespace ControllerCrudClient.Controllers
     {
         public List<Client> clients { get; set; }
 
-        private ClientRepository _clientRepository;
+        private IClientService _clientService;
 
-        public ClientController(IConfiguration configuration)
+        public ClientController(IClientService clientService)
         {
-            _clientRepository = new ClientRepository(configuration);
+            _clientService = clientService;
         }
 
         #region CreateClientsWhithoutDB
@@ -39,7 +40,7 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Client> Create(Client client)
         {
-            if (_clientRepository.CreateClient(client))
+            if (_clientService.CreateClient(client))
             {
                 return BadRequest();
             };
@@ -59,7 +60,7 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Client>> Read()
         {
-            var clientsList = _clientRepository.GetClients();
+            var clientsList = _clientService.GetClients();
             
             if(clientsList == null) { 
                 return NotFound();
@@ -73,7 +74,7 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Update(string nome, string novoNome)
         {
-            if(_clientRepository.UpdateClient(nome, novoNome))
+            if(_clientService.UpdateClient(nome, novoNome))
             {
                 return NotFound();
             }
@@ -85,7 +86,7 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Client>> Delete(int index)
         {
-            if (!_clientRepository.DeleteClient(index))
+            if (!_clientService.DeleteClient(index))
             {
                 return NotFound();
             }

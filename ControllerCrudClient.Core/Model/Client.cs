@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ControllerCrudClient
+namespace ControllerCrudClient.Core
 {
     public class Client
     {

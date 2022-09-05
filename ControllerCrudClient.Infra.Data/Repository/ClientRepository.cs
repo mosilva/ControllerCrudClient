@@ -1,10 +1,13 @@
-﻿using Dapper;
+﻿using ControllerCrudClient.Core;
+using ControllerCrudClient.Core.Interface;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 
 
-namespace ControllerCrudClient.Repositories
+namespace ControllerCrudClient.Infra.Data.Repository
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly IConfiguration _configuration;
 
@@ -49,21 +52,6 @@ namespace ControllerCrudClient.Repositories
             (DateTime.Now.Year - client.dataNascimento.Year) - 1 : (DateTime.Now.Year - client.dataNascimento.Year));              
         }
 
-
-        public bool DeleteClient(long id)
-        {
-            var query = "DELETE FROM Clientes WHERE id = @id";
-
-            var parameters = new DynamicParameters();
-            parameters.Add("id", id);
-
-            using var conn = new SqlConnection(_configuration
-                .GetConnectionString("DefaultConnection"));
-
-            return conn.Execute(query, parameters) == 1;
-
-        }
-
         public bool UpdateClient(string nome, string novoNome)
         {
             var query = "UPDATE Clientes SET nome = @novoNome WHERE nome = @nome";
@@ -77,6 +65,20 @@ namespace ControllerCrudClient.Repositories
 
             return conn.Execute(query, parameters) == 1;
 
+
+        }
+
+        public bool DeleteClient(long id)
+        {
+            var query = "DELETE FROM Clientes WHERE id = @id";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id);
+
+            using var conn = new SqlConnection(_configuration
+                .GetConnectionString("DefaultConnection"));
+
+            return conn.Execute(query, parameters) == 1;
 
         }
 

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerCrudClient", "ControllerCrudClient\ControllerCrudClient.csproj", "{2987B4C8-277F-45DA-BBEC-63307F829356}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerCrudClient.Core", "ControllerCrudClient.Core\ControllerCrudClient.Core.csproj", "{F8BA6BB2-46DC-4E85-8F0B-A41C63F0CBF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerCrudClient.Infra.Data", "ControllerCrudClient.Infra.Data\ControllerCrudClient.Infra.Data.csproj", "{CF4CF725-10BC-4DB1-A553-E2503A20DC64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2987B4C8-277F-45DA-BBEC-63307F829356}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2987B4C8-277F-45DA-BBEC-63307F829356}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2987B4C8-277F-45DA-BBEC-63307F829356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BA6BB2-46DC-4E85-8F0B-A41C63F0CBF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BA6BB2-46DC-4E85-8F0B-A41C63F0CBF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BA6BB2-46DC-4E85-8F0B-A41C63F0CBF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BA6BB2-46DC-4E85-8F0B-A41C63F0CBF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4CF725-10BC-4DB1-A553-E2503A20DC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4CF725-10BC-4DB1-A553-E2503A20DC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4CF725-10BC-4DB1-A553-E2503A20DC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4CF725-10BC-4DB1-A553-E2503A20DC64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
