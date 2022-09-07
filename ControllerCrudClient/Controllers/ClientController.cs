@@ -38,7 +38,8 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))]
+        [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))
+            ]
         public ActionResult<Client> Create(Client client)
         {
             if (_clientService.CreateClient(client))
@@ -72,13 +73,16 @@ namespace ControllerCrudClient.Controllers
 
         [HttpPut("/{novoNome}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ServiceFilter(typeof(ActionFilterCheckUpdateNome))]
         public IActionResult Update(string nome, string novoNome)
         {
-            if(_clientService.UpdateClient(nome, novoNome))
+            if(!(_clientService.UpdateClient(nome, novoNome)))
             {
-                return NotFound();
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
+
             return NoContent();
         }
 

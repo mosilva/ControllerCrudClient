@@ -5,13 +5,14 @@ using ControllerCrudClient.Infra.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Add global filters
+#region Add global filters
 
-builder.Services.AddMvc(options =>
-    options
-    .Filters.Add<ActionFilterValidationInserctionCpf>()
-    );
+//builder.Services.AddMvc(options =>
+//    options
+//    .Filters.Add<ActionFilterValidationInserctionCpf>()
+//    );
 
+#endregion
 
 // Add services to the container.
 
@@ -27,9 +28,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Mapeamento Containers
+
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+
+//Mapeamento filtros com injeção de depêndencia
+
 builder.Services.AddScoped<ActionFilterValidationInserctionCpf>();
+builder.Services.AddScoped<ActionFilterCheckUpdateNome>();
 
 var app = builder.Build();
 

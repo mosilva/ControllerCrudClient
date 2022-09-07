@@ -39,5 +39,18 @@ namespace ControllerCrudClient.Core.Service
 
             return true;
         }
+
+        public bool CheckExistsNomeClient(string nome)
+        {
+            if (_clienteRespository.GetClientByNome(nome) == null)
+            {
+                return false;
+            }
+
+            return true;
+
+
+        }
+
     }
 }

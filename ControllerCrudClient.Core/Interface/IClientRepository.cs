@@ -12,5 +12,7 @@
 
         Client GetClientByCpf(string cpf);
 
+        Client GetClientByNome(string nome);
+
     }
 }

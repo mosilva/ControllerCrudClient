@@ -12,5 +12,7 @@
 
         bool CheckExistsCpfClient(string cpf);
 
+        bool CheckExistsNomeClient(string nome);
+
     }
 }

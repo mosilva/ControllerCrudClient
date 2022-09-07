@@ -64,8 +64,6 @@ namespace ControllerCrudClient.Infra.Data.Repository
                 .GetConnectionString("DefaultConnection"));
 
             return conn.Execute(query, parameters) == 1;
-
-
         }
 
         public bool DeleteClient(long id)
@@ -93,6 +91,20 @@ namespace ControllerCrudClient.Infra.Data.Repository
                 .GetConnectionString("DefaultConnection"));
 
             return conn.QueryFirstOrDefault<Client>(query, parameters);
+        }
+
+        public Client GetClientByNome(string nome)
+        {
+            var query = "SELECT * FROM Clientes WHERE nome = @nome";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("nome", nome);
+
+            using var conn = new SqlConnection(_configuration
+                .GetConnectionString("DefaultConnection"));
+
+            return conn.QueryFirstOrDefault<Client>(query, parameters);
+
         }
     }
 }
