@@ -10,5 +10,7 @@
 
         bool DeleteClient(long index);
 
+        bool CheckExistsCpfClient(string cpf);
+
     }
 }

@@ -1,5 +1,6 @@
 using ControllerCrudClient.Core;
 using ControllerCrudClient.Core.Interface;
+using ControllerCrudClient.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControllerCrudClient.Controllers
@@ -7,9 +8,7 @@ namespace ControllerCrudClient.Controllers
     [ApiController]
     [Route("[controller]")]
     [Consumes("application/json")]
-    [Produces("application/json")]
-
-
+    [TypeFilter(typeof(LogAuthorizationFilter))]
     public class ClientController : ControllerBase
     {
         public List<Client> clients { get; set; }
@@ -37,12 +36,14 @@ namespace ControllerCrudClient.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))]
         public ActionResult<Client> Create(Client client)
         {
             if (_clientService.CreateClient(client))
             {
-                return BadRequest();
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             };
             return CreatedAtAction(nameof(Create), client);
         }

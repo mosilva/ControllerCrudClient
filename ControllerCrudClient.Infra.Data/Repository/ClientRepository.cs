@@ -82,5 +82,17 @@ namespace ControllerCrudClient.Infra.Data.Repository
 
         }
 
+        public Client GetClientByCpf(string cpf)
+        {
+            var query = "SELECT * FROM Clientes WHERE cpf = @cpf";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("cpf", cpf);
+
+            using var conn = new SqlConnection(_configuration
+                .GetConnectionString("DefaultConnection"));
+
+            return conn.QueryFirstOrDefault<Client>(query, parameters);
+        }
     }
 }

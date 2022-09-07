@@ -10,5 +10,7 @@
 
         bool DeleteClient(long index);
 
+        Client GetClientByCpf(string cpf);
+
     }
 }

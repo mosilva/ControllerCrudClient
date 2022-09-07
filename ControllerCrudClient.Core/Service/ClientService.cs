@@ -30,6 +30,14 @@ namespace ControllerCrudClient.Core.Service
         {
             return _clienteRespository.DeleteClient(index);
         }
+        public bool CheckExistsCpfClient(string cpf)
+        {
+            if(_clienteRespository.GetClientByCpf(cpf)== null)
+            {
+                return false;
+            }
 
+            return true;
+        }
     }
 }
