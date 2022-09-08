@@ -1,6 +1,8 @@
 ﻿using ControllerCrudClient.Core;
 using ControllerCrudClient.Core.Interface;
 using Dapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 
@@ -77,6 +79,50 @@ namespace ControllerCrudClient.Infra.Data.Repository
                 .GetConnectionString("DefaultConnection"));
 
             return conn.Execute(query, parameters) == 1;
+           
+            #region Possibilidade de fazer o tratamento de exceção com o Try/Catch
+
+            //try
+            //{
+            //    var parameters = new DynamicParameters();
+            //    parameters.Add("id", id);
+
+            //    using var conn = new SqlConnection(_configuration
+            //        .GetConnectionString("DefaultConnection"));
+
+            //    return conn.Execute(query, parameters) == 1;
+            //}
+
+            //catch (SqlException ex)
+            //{
+            //    Console.WriteLine("Erro inesperado ao se comunicar com o banco de dados");
+
+            //    throw;
+            //}
+
+            //catch (NullReferenceException ex)
+            //{
+            //    Console.WriteLine("Erro inesperado no sistema");
+
+            //    return new StatusCodeResult(StatusCodes.Status417ExpectationFailed));
+            //}
+
+
+            //catch (Exception ex)
+            //{
+            //    var tipoDaExcecao = ex.GetType().Name;
+            //    var messagem = ex.InnerException.Message;
+            //    var caminho = ex.InnerException.StackTrace;
+
+            //    Console.WriteLine(
+            //        $"tipo da exceção:{tipoDaExcecao}\n" +
+            //        $"mensagem:{messagem}\n" +
+            //        $"caminho:{caminho}");
+
+            //    return false;
+            //}
+
+            #endregion
 
         }
 

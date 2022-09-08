@@ -63,8 +63,9 @@ namespace ControllerCrudClient.Controllers
         public ActionResult<List<Client>> Read()
         {
             var clientsList = _clientService.GetClients();
-            
-            if(clientsList == null) { 
+
+            if (clientsList == null)
+            {
                 return NotFound();
             }
 
@@ -78,7 +79,7 @@ namespace ControllerCrudClient.Controllers
         [ServiceFilter(typeof(ActionFilterCheckUpdateNome))]
         public IActionResult Update(string nome, string novoNome)
         {
-            if(!(_clientService.UpdateClient(nome, novoNome)))
+            if (!(_clientService.UpdateClient(nome, novoNome)))
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }

@@ -5,14 +5,12 @@ using ControllerCrudClient.Infra.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Add global filters
+//Add global filters
 
-//builder.Services.AddMvc(options =>
-//    options
-//    .Filters.Add<ActionFilterValidationInserctionCpf>()
-//    );
+builder.Services.AddMvc(options =>
+    options.Filters.Add<GeneralExceptionFilter>()
+    );
 
-#endregion
 
 // Add services to the container.
 
