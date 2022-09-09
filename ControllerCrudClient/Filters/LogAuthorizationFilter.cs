@@ -6,6 +6,8 @@ namespace ControllerCrudClient.Filters
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            Clock.StartClock();
+
             if (!context.HttpContext.Request.Headers.Keys.Contains("Code"))
             {
                 context.HttpContext.Request.Headers.Add("Code",Guid.NewGuid().ToString());

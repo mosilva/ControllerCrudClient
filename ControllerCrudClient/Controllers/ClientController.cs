@@ -2,6 +2,7 @@ using ControllerCrudClient.Core;
 using ControllerCrudClient.Core.Interface;
 using ControllerCrudClient.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace ControllerCrudClient.Controllers
 {
@@ -9,12 +10,10 @@ namespace ControllerCrudClient.Controllers
     [Route("[controller]")]
     [Consumes("application/json")]
     [TypeFilter(typeof(LogAuthorizationFilter))]
+    [TypeFilter(typeof(ResourceFilterShowStopWatch))]
     public class ClientController : ControllerBase
     {
-        public List<Client> clients { get; set; }
-
         private IClientService _clientService;
-
         public ClientController(IClientService clientService)
         {
             _clientService = clientService;
@@ -38,8 +37,7 @@ namespace ControllerCrudClient.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))
-            ]
+        [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))]
         public ActionResult<Client> Create(Client client)
         {
             if (_clientService.CreateClient(client))
