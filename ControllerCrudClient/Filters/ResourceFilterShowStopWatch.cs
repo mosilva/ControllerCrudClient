@@ -7,13 +7,13 @@ namespace ControllerCrudClient.Filters
     {
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
-            
+            Clock.EndClock();
+            Clock.StopWatchProcess(context);
         }
 
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            Clock.EndClock();
-            Clock.StopWatchProcess(context);
+
         }
     }
 }

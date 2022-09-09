@@ -15,7 +15,7 @@ namespace ControllerCrudClient
             end = DateTime.Now;
         }
 
-        static public void StopWatchProcess(ResourceExecutingContext context)
+        static public void StopWatchProcess(ResourceExecutedContext context)
         {
             TimeSpan StopWatchProcess = (end - start);
 
