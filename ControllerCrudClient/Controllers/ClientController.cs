@@ -40,7 +40,7 @@ namespace ControllerCrudClient.Controllers
         [ServiceFilter(typeof(ActionFilterValidationInserctionCpf))]
         public ActionResult<Client> Create(Client client)
         {
-            if (_clientService.CreateClient(client))
+            if (!(_clientService.CreateClient(client)))
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             };
