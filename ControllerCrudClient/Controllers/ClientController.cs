@@ -2,7 +2,6 @@ using ControllerCrudClient.Core;
 using ControllerCrudClient.Core.Interface;
 using ControllerCrudClient.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace ControllerCrudClient.Controllers
 {
